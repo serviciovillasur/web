@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Territorios</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9fc;
+      color: #333;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 2.5em;
+      color: #4CAF50;
+      margin: 0;
+    }
+    .panel, .carousel {
+      width: 90%;
+      max-width: 1280px;
+      text-align: center;
+    }
+    select {
+      padding: 10px;
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .carousel {
+      display: none;
+      position: relative;
+    }
+    .slides img {
+      width: 100%;
+      height: auto;
+      border-radius: 15px;
+      display: none;
+    }
+    .slides img.active {
+      display: block;
+    }
+    .back-button {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BIENVENIDOS CIBERHÉROES</h1>
+    <p>Blindamos nuestro colegio con Ciberseguridad</p>
+  </header>
+
+  <!-- Panel de inicio -->
+  <div class="panel" id="panel">
+    <h2>Selecciona una imagen</h2>
+    <select id="imageSelector">
+      <option value="" disabled selected>-- Elige una imagen --</option>
+    </select>
+    <br>
+    <button onclick="goToImage()">Ver imagen</button>
+  </div>
+
+  <!-- Carrusel -->
+  <div class="carousel" id="carousel">
+    <div class="slides" id="slides">
+      <!-- Las 45 imágenes -->
+      <!-- Se generan dinámicamente en JS -->
+    </div>
+    <button class="back-button" onclick="goToPanel()">Volver al panel</button>
+  </div>
+
+  <script>
+    const panel = document.getElementById('panel');
+    const carousel = document.getElementById('carousel');
+    const slidesContainer = document.getElementById('slides');
+    const imageSelector = document.getElementById('imageSelector');
+    let currentIndex = 0;
+    const totalImages = 45;
+    const slides = [];
+
+    // Crear opciones en el selector y las imágenes
+    for (let i = 1; i <= totalImages; i++) {
+      const option = document.createElement('option');
+      option.value = i - 1;
+      option.textContent = `Imagen ${i}`;
+      imageSelector.appendChild(option);
+
+      const img = document.createElement('img');
+      img.src = `imagen${i}.png`;
+      img.alt = `Imagen ${i}`;
+      slidesContainer.appendChild(img);
+      slides.push(img);
+    }
+
+    function showSlide(index) {
+      slides[currentIndex].classList.remove('active');
+      currentIndex = index;
+      slides[currentIndex].classList.add('active');
+    }
+
+    function goToImage() {
+      const selectedIndex = parseInt(imageSelector.value);
+      if (!isNaN(selectedIndex)) {
+        showSlide(selectedIndex);
+        panel.style.display = 'none';
+        carousel.style.display = 'block';
+      }
+    }
+
+    function goToPanel() {
+      slides[currentIndex].classList.remove('active');
+      carousel.style.display = 'none';
+      panel.style.display = 'block';
+      imageSelector.selectedIndex = 0;
+    }
+
+    // Mostrar panel al inicio
+    goToPanel();
+  </script>
+</body>
+</html>

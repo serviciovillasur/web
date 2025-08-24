@@ -68,25 +68,26 @@
 </head>
 <body>
   <header>
-    <h1>BIENVENIDOS CIBERHÉROES</h1>
-    <p>Blindamos nuestro colegio con Ciberseguridad</p>
+    <h1>BIENVENIDO HERMANO</h1>
+    <p>Si estás aquí es porque Jehová ha visto tu capacidad para ayudar a dirigir a su pueblo (Hechos 5:42).</p>
+    <p>NOTA: Es importante que solo hagas el territorio asignado, si ya fue concluido anima al grupo a que terminen el servicio en predicación en las calles y parques.</p>
+    <p>Gracias por tu apoyo.</p>
   </header>
 
   <!-- Panel de inicio -->
   <div class="panel" id="panel">
-    <h2>Selecciona una imagen</h2>
+    <h2>Selecciona el territorio asignado</h2>
     <select id="imageSelector">
-      <option value="" disabled selected>-- Elige una imagen --</option>
+      <option value="" disabled selected>-- Elige el territorio --</option>
     </select>
     <br>
-    <button onclick="goToImage()">Ver imagen</button>
+    <button onclick="goToImage()">Ver Territorio</button>
   </div>
 
   <!-- Carrusel -->
   <div class="carousel" id="carousel">
     <div class="slides" id="slides">
-      <!-- Las 45 imágenes -->
-      <!-- Se generan dinámicamente en JS -->
+      <!-- Las 45 imágenes se generan dinámicamente -->
     </div>
     <button class="back-button" onclick="goToPanel()">Volver al panel</button>
   </div>
@@ -104,12 +105,12 @@
     for (let i = 1; i <= totalImages; i++) {
       const option = document.createElement('option');
       option.value = i - 1;
-      option.textContent = `Imagen ${i}`;
+      option.textContent = `Territorio ${i}`;
       imageSelector.appendChild(option);
 
       const img = document.createElement('img');
       img.src = `imagen${i}.png`;
-      img.alt = `Imagen ${i}`;
+      img.alt = `Territorio ${i}`;
       slidesContainer.appendChild(img);
       slides.push(img);
     }
@@ -130,7 +131,9 @@
     }
 
     function goToPanel() {
-      slides[currentIndex].classList.remove('active');
+      if (slides[currentIndex]) {
+        slides[currentIndex].classList.remove('active');
+      }
       carousel.style.display = 'none';
       panel.style.display = 'block';
       imageSelector.selectedIndex = 0;
